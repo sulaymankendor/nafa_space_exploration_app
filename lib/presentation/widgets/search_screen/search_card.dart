@@ -7,43 +7,33 @@ class SearchCard extends StatelessWidget {
       onTap: () {
         print('asd');
       },
-      child: Container(
-        padding: EdgeInsets.all(20),
+      child: Card(
+        color: Theme.of(context).cardTheme.color,
+        shape: Theme.of(context).cardTheme.shape,
+        elevation: Theme.of(context).cardTheme.elevation,
 
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-          color: Color.fromARGB(255, 25, 34, 49),
-        ),
-        child: Row(
-          spacing: 15,
+        child: Padding(
+          padding: EdgeInsets.all(20),
+          child: Row(
+            spacing: 15,
 
-          children: [
-            Icon(Icons.landscape_sharp, size: 40),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Rocket Card',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                    fontSize: 20,
-                  ),
-                ),
-                Container(
-                  width: 200, //to be changed to relative the screen
-                  child: Text(
-                    'Jakdjf ajds lfal dslf jalkds flads lkflak dsfjowej a defd',
-                    style: TextStyle(
-                      color: Colors.white70,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
+            children: [
+              Icon(Icons.rocket_launch, size: 40),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Earth', style: Theme.of(context).textTheme.titleLarge),
+                  Container(
+                    width: 200, //to be changed to relative the screen
+                    child: Text(
+                      'Jakdjf ajds lfal dslf jalkds flads lkflak dsfjowej a defd',
+                      style: Theme.of(context).textTheme.bodyMedium,
                     ),
                   ),
-                ),
-              ],
-            ),
-          ],
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

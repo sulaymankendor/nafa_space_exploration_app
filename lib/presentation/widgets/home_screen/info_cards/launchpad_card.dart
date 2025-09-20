@@ -3,44 +3,33 @@ import 'package:flutter/material.dart';
 class LaunchPadCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(20),
+    return Card(
+      color: Theme.of(context).cardTheme.color,
+      shape: Theme.of(context).cardTheme.shape,
+      elevation: Theme.of(context).cardTheme.elevation,
 
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        color: Color.fromARGB(255, 25, 34, 49),
-      ),
+      child: Padding(
+        padding: EdgeInsets.all(20),
+        child: Row(
+          spacing: 15,
 
-      child: Row(
-        spacing: 15,
-
-        children: [
-          Icon(Icons.rocket_launch, size: 40),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Earth',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                  fontSize: 20,
-                ),
-              ),
-              Container(
-                width: 200, //to be changed to relative the screen
-                child: Text(
-                  'Jakdjf ajds lfal dslf jalkds flads lkflak dsfjowej a defd',
-                  style: TextStyle(
-                    color: Colors.white70,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
+          children: [
+            Icon(Icons.rocket_launch, size: 40),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Earth', style: Theme.of(context).textTheme.titleLarge),
+                Container(
+                  width: 200, //to be changed to relative the screen
+                  child: Text(
+                    'Jakdjf ajds lfal dslf jalkds flads lkflak dsfjowej a defd',
+                    style: Theme.of(context).textTheme.bodyMedium,
                   ),
                 ),
-              ),
-            ],
-          ),
-        ],
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

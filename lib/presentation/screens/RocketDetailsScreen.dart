@@ -12,7 +12,15 @@ class RocketDetailsScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Image.asset('assets/images/rockets.jpg'),
+              Container(
+                width: double.infinity,
+                child: Image.asset(
+                  'assets/images/rockets.jpg',
+                  width: double.infinity,
+                  height: 230,
+                  fit: BoxFit.cover,
+                ),
+              ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
 
@@ -56,19 +64,11 @@ class RocketDetailsScreen extends StatelessWidget {
                         children: [
                           Text(
                             'SpaceX',
-                            style: const TextStyle(
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
+                            style: Theme.of(context).textTheme.headlineLarge,
                           ),
                           Text(
                             'Republic of the Marshall Islands',
-                            style: const TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.white,
-                            ),
+                            style: Theme.of(context).textTheme.bodyMedium,
                           ),
                         ],
                       ),
@@ -90,16 +90,16 @@ class RocketDetailsScreen extends StatelessWidget {
                             spacing: 20,
 
                             children: [
-                              _statItem('Payload Weight', '200kg'),
-                              _statItem('Rocket Mass', '146 kg'),
+                              _statItem(context, 'Payload Weight', '200kg'),
+                              _statItem(context, 'Rocket Mass', '146 kg'),
                             ],
                           ),
                           Column(
                             spacing: 20,
 
                             children: [
-                              _statItem('Rocket Mass', '146 kg'),
-                              _statItem('Rocket Mass', '146 kg'),
+                              _statItem(context, 'Rocket Mass', '146 kg'),
+                              _statItem(context, 'Rocket Mass', '146 kg'),
                             ],
                           ),
                         ],
@@ -114,19 +114,11 @@ class RocketDetailsScreen extends StatelessWidget {
                         children: [
                           Text(
                             'Description',
-                            style: const TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
+                            style: Theme.of(context).textTheme.headlineMedium,
                           ),
                           Text(
                             'The Falcon 1 was an expendable launch jasdjhas dfashdkjfhkjas hdkjfhkjsadkfkjas hdkjfkdfasfdkjadsjfhsadfasd asdhfakjdsfkhaskdfsystem privately developed and manufactured by SpaceX during 2006-2009. On 28 September 2008, Falcon 1 became the first privately-developed liquid-fuel launch vehicle to go into orbit around the Earth.',
-                            style: TextStyle(
-                              color: const Color.fromARGB(206, 255, 255, 255),
-                              fontWeight: FontWeight.w500,
-                              fontSize: 16,
-                            ),
+                            style: Theme.of(context).textTheme.bodyLarge,
                           ),
                         ],
                       ),
@@ -142,17 +134,16 @@ class RocketDetailsScreen extends StatelessWidget {
   }
 }
 
-Widget _statItem(String title, String stat) {
+Widget _statItem(BuildContext context, String title, String stat) {
   return Column(
     children: [
       Text(
         title,
         style: TextStyle(color: Colors.blueAccent, fontWeight: FontWeight.w500),
       ),
-
       Text(
         stat,
-        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        style: TextStyle(color: Theme.of(context).colorScheme.primary),
       ),
     ],
   );

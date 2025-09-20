@@ -10,20 +10,12 @@ class NavSection extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Nav(
-            title: 'Capsules',
-            imageName: 'capsule.jpg',
-            screen: '/capsuleDetails',
-          ),
-          Nav(
-            title: 'Rockets',
-            imageName: 'rockets.jpg',
-            screen: '/rocketDetails',
-          ),
+          Nav(title: 'Capsules', imageName: 'capsule.jpg', screen: '/capsules'),
+          Nav(title: 'Rockets', imageName: 'rockets.jpg', screen: '/rockets'),
           Nav(
             title: 'Launches',
             imageName: 'launches.png',
-            screen: '/launchDetails',
+            screen: '/launches',
           ),
         ],
       ),

@@ -4,13 +4,14 @@ import 'package:provider/provider.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:spacex_flutter_app/presentation/screens/CapsulesScreen.dart';
 import 'package:spacex_flutter_app/presentation/screens/HomeScreen.dart';
 import 'package:spacex_flutter_app/presentation/screens/LaunchDetailsScreen.dart';
+import 'package:spacex_flutter_app/presentation/screens/LaunchesScreen.dart';
 import 'package:spacex_flutter_app/presentation/screens/RocketDetailsScreen.dart';
 import 'package:spacex_flutter_app/presentation/screens/RocketsScreen.dart';
 import 'package:spacex_flutter_app/presentation/screens/SearchScreen.dart';
 import 'package:spacex_flutter_app/presentation/utils/animation_utils.dart';
-import 'package:spacex_flutter_app/presentation/utils/fetch_capsules.dart';
 import 'package:spacex_flutter_app/presentation/widgets/app_bars/home_app_bar.dart';
 
 import 'core/utils/theme.dart';
@@ -24,9 +25,6 @@ void main() async {
 
   // Initialize SharedPreferences
   await SharedPreferences.getInstance();
-  var data = await fetchCapsules();
-  print('Stop Playing $data');
-  // print(fetchCapsuleD);
   runApp(const SpaceXApp());
 }
 
@@ -107,9 +105,9 @@ class _SpaceXAppState extends State<SpaceXApp> {
                     actions: [
                       IconButton(
                         onPressed: () {
-                          print('Sunny');
+                          themeProvider.toggleTheme();
                         },
-                        icon: Icon(Icons.sunny),
+                        icon: Icon(Icons.dark_mode),
                       ),
                     ],
                   ),
@@ -157,6 +155,18 @@ class _SpaceXAppState extends State<SpaceXApp> {
                   GetPage(
                     name: '/rockets',
                     page: () => RocketsScreen(),
+                    transition: Transition.fadeIn, // Apply the transition here
+                    transitionDuration: Duration(milliseconds: 100),
+                  ),
+                  GetPage(
+                    name: '/launches',
+                    page: () => LaunchesScreen(),
+                    transition: Transition.fadeIn, // Apply the transition here
+                    transitionDuration: Duration(milliseconds: 100),
+                  ),
+                  GetPage(
+                    name: '/capsules',
+                    page: () => CapsulesScreen(),
                     transition: Transition.fadeIn, // Apply the transition here
                     transitionDuration: Duration(milliseconds: 100),
                   ),

@@ -12,7 +12,15 @@ class LaunchDetailsScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Image.asset('assets/images/launches.png'),
+              Container(
+                width: double.infinity,
+                child: Image.asset(
+                  'assets/images/launches.png',
+                  width: double.infinity,
+                  height: 230,
+                  fit: BoxFit.cover,
+                ),
+              ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
 
@@ -25,7 +33,7 @@ class LaunchDetailsScreen extends StatelessWidget {
                       children: [
                         IconButton(
                           onPressed: () {
-                            Get.toNamed('/rocketDetails');
+                            // Get.toNamed('/rocketDetails');
                             print('liked');
                           },
                           icon: Icon(Icons.favorite, size: 32),
@@ -39,11 +47,7 @@ class LaunchDetailsScreen extends StatelessWidget {
                         children: [
                           Text(
                             'Falcon 1',
-                            style: const TextStyle(
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
+                            style: Theme.of(context).textTheme.headlineLarge,
                           ),
                         ],
                       ),
@@ -61,9 +65,9 @@ class LaunchDetailsScreen extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          _statItem(Icons.rocket_launch, 'rocket'),
-                          _statItem(Icons.timelapse, '12:20pm'),
-                          _statItem(Icons.date_range_sharp, '2023'),
+                          _statItem(context, Icons.rocket_launch, 'rocket'),
+                          _statItem(context, Icons.timelapse, '12:20pm'),
+                          _statItem(context, Icons.date_range_sharp, '2023'),
                         ],
                       ),
                     ),
@@ -76,19 +80,11 @@ class LaunchDetailsScreen extends StatelessWidget {
                         children: [
                           Text(
                             'Details',
-                            style: const TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
+                            style: Theme.of(context).textTheme.headlineMedium,
                           ),
                           Text(
                             'The Falcon 1 was an expendable launch jasdjhas dfashdkjfhkjas hdkjfhkjsadkfkjas hdkjfkdfasfdkjadsjfhsadfasd asdhfakjdsfkhaskdfsystem privately developed and manufactured by SpaceX during 2006-2009. On 28 September 2008, Falcon 1 became the first privately-developed liquid-fuel launch vehicle to go into orbit around the Earth.The Falcon 1 was an expendable launch jasdjhas dfashdkjfhkjas hdkjfhkjsadkfkjas hdkjfkdfasfdkjadsjfhsadfasd asdhfakjdsfkhaskdfsystem privately developed and manufactured by SpaceX during 2006-2009. On 28 September 2008, Falcon 1 became the first privately-developed liquid-fuel launch vehicle to go into orbit around the Earth.The Falcon 1 was an expendable launch jasdjhas dfashdkjfhkjas hdkjfhkjsadkfkjas hdkjfkdfasfdkjadsjfhsadfasd asdhfakjdsfkhaskdfsystem privately developed and manufactured by SpaceX during 2006-2009. On 28 September 2008, Falcon 1 became the first privately-developed liquid-fuel launch vehicle to go into orbit around the Earth.',
-                            style: TextStyle(
-                              color: const Color.fromARGB(206, 255, 255, 255),
-                              fontWeight: FontWeight.w500,
-                              fontSize: 16,
-                            ),
+                            style: Theme.of(context).textTheme.bodyLarge,
                           ),
                         ],
                       ),
@@ -104,7 +100,7 @@ class LaunchDetailsScreen extends StatelessWidget {
   }
 }
 
-Widget _statItem(IconData icon, String stat) {
+Widget _statItem(BuildContext context, IconData icon, String stat) {
   return Column(
     spacing: 5,
     children: [
@@ -112,7 +108,10 @@ Widget _statItem(IconData icon, String stat) {
 
       Text(
         stat,
-        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        style: TextStyle(
+          color: Theme.of(context).colorScheme.primary,
+          fontWeight: FontWeight.bold,
+        ),
       ),
     ],
   );

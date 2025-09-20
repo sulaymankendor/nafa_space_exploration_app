@@ -27,11 +27,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
               // The leading text, using the passed-in 'leadingText' parameter
               Text(
                 leadingText,
-                style: const TextStyle(
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
+                style: Theme.of(context).textTheme.headlineLarge,
               ),
 
               // A row to hold the action widgets

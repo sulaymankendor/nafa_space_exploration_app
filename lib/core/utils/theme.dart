@@ -6,14 +6,16 @@ class AppTheme {
     return ThemeData(
       useMaterial3: true,
       brightness: Brightness.light,
+      scaffoldBackgroundColor: AppColors.lightBackground,
       colorScheme: const ColorScheme.light(
         primary: AppColors.primary,
         secondary: AppColors.secondary,
-        surface: AppColors.surface,
+        surface: AppColors.lightSurface,
         background: AppColors.background,
         error: AppColors.error,
         onPrimary: Colors.white,
-        onSecondary: Colors.white,
+        onSecondary: Color.fromARGB(179, 210, 210, 210),
+
         onSurface: Colors.black,
         onBackground: Colors.black,
         onError: Colors.white,
@@ -25,7 +27,7 @@ class AppTheme {
         centerTitle: true,
       ),
       cardTheme: CardThemeData(
-        color: AppColors.surface,
+        color: AppColors.lightSurface,
         elevation: 4,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       ),
@@ -65,14 +67,16 @@ class AppTheme {
     return ThemeData(
       useMaterial3: true,
       brightness: Brightness.dark,
+      scaffoldBackgroundColor: AppColors.surface,
+
       colorScheme: const ColorScheme.dark(
-        primary: AppColors.primary,
+        primary: Colors.white,
         secondary: AppColors.secondary,
         surface: AppColors.surface,
         background: AppColors.background,
         error: AppColors.error,
         onPrimary: Colors.white,
-        onSecondary: Colors.white,
+        onSecondary: Color.fromARGB(255, 46, 53, 66),
         onSurface: Colors.white,
         onBackground: Colors.white,
         onError: Colors.white,

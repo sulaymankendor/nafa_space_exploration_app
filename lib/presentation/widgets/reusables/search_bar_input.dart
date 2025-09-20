@@ -9,7 +9,7 @@ class SearchBarInput extends StatelessWidget {
         elevation: WidgetStatePropertyAll(0),
 
         backgroundColor: WidgetStatePropertyAll(
-          const Color.fromARGB(255, 46, 53, 66),
+          Theme.of(context).colorScheme.onSecondary,
         ),
         leading: Icon(Icons.search),
       ),

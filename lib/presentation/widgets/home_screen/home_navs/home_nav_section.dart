@@ -8,30 +8,9 @@ class HomeNavSection extends StatelessWidget {
       child: Row(
         spacing: 20,
         children: [
-          Text(
-            'All',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 14,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-          Text(
-            'Launchpads',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 14,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-          Text(
-            'Landpads',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 14,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
+          Text('All', style: Theme.of(context).textTheme.labelLarge),
+          Text('Launchpads', style: Theme.of(context).textTheme.labelLarge),
+          Text('Landpads', style: Theme.of(context).textTheme.labelLarge),
         ],
       ),
     );

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:spacex_flutter_app/core/utils/theme.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -22,11 +24,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               child: Center(
                 child: Text(
                   title,
-                  style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
+                  style: Theme.of(context).textTheme.headlineMedium,
                 ),
               ),
             ),
@@ -34,11 +32,19 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             // Left-aligned back button
             Positioned(
               left: 10,
-              child: SizedBox(
+              child: Container(
                 height: kToolbarHeight,
+                width:
+                    kToolbarHeight, // Use kToolbarHeight for a perfect circle
+
                 child: IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.arrow_back, color: Colors.white),
+                  onPressed: () {
+                    Get.back();
+                  },
+                  icon: Icon(
+                    Icons.arrow_back,
+                    color: Theme.of(context).iconTheme.color,
+                  ),
                 ),
               ),
             ),
