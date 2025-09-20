@@ -9,7 +9,23 @@ class NavSection extends StatelessWidget {
       margin: EdgeInsets.only(top: 20),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [Nav(), Nav(), Nav()],
+        children: [
+          Nav(
+            title: 'Capsules',
+            imageName: 'capsule.jpg',
+            screen: '/capsuleDetails',
+          ),
+          Nav(
+            title: 'Rockets',
+            imageName: 'rockets.jpg',
+            screen: '/rocketDetails',
+          ),
+          Nav(
+            title: 'Launches',
+            imageName: 'launches.png',
+            screen: '/launchDetails',
+          ),
+        ],
       ),
     );
   }

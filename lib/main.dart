@@ -9,6 +9,8 @@ import 'package:spacex_flutter_app/presentation/screens/LaunchDetailsScreen.dart
 import 'package:spacex_flutter_app/presentation/screens/RocketDetailsScreen.dart';
 import 'package:spacex_flutter_app/presentation/screens/RocketsScreen.dart';
 import 'package:spacex_flutter_app/presentation/screens/SearchScreen.dart';
+import 'package:spacex_flutter_app/presentation/utils/animation_utils.dart';
+import 'package:spacex_flutter_app/presentation/utils/fetch_capsules.dart';
 import 'package:spacex_flutter_app/presentation/widgets/app_bars/home_app_bar.dart';
 
 import 'core/utils/theme.dart';
@@ -22,7 +24,9 @@ void main() async {
 
   // Initialize SharedPreferences
   await SharedPreferences.getInstance();
-
+  var data = await fetchCapsules();
+  print('Stop Playing $data');
+  // print(fetchCapsuleD);
   runApp(const SpaceXApp());
 }
 
@@ -138,18 +142,45 @@ class _SpaceXAppState extends State<SpaceXApp> {
                   // appBar:Header(),
                 ),
                 getPages: [
-                  GetPage(name: '/', page: () => const SplashScreen()),
-                  GetPage(name: '/home', page: () => HomeScreen()),
-                  GetPage(name: '/rockets', page: () => RocketsScreen()),
+                  GetPage(
+                    name: '/',
+                    page: () => const SplashScreen(),
+                    transition: Transition.fadeIn, // Apply the transition here
+                    transitionDuration: Duration(milliseconds: 100),
+                  ),
+                  GetPage(
+                    name: '/home',
+                    page: () => HomeScreen(),
+                    transition: Transition.fadeIn, // Apply the transition here
+                    transitionDuration: Duration(milliseconds: 100),
+                  ),
+                  GetPage(
+                    name: '/rockets',
+                    page: () => RocketsScreen(),
+                    transition: Transition.fadeIn, // Apply the transition here
+                    transitionDuration: Duration(milliseconds: 100),
+                  ),
                   GetPage(
                     name: '/rocketDetails',
                     page: () => RocketDetailsScreen(),
+                    transition: Transition.fadeIn, // Apply the transition here
+                    transitionDuration: Duration(milliseconds: 100),
                   ),
                   GetPage(
                     name: '/launchDetails',
                     page: () => LaunchDetailsScreen(),
+                    transition: Transition.fadeIn, // Apply the transition here
+                    transitionDuration: Duration(milliseconds: 100),
                   ),
-                  GetPage(name: '/searchScreen', page: () => SearchScreen()),
+                  GetPage(
+                    name: '/searchScreen',
+                    page: () => SearchScreen(),
+                    transition:
+                        Transition.fadeIn, // Use a valid Transition enum
+                    customTransition:
+                        CustomSlideTransition(), // Provide your custom transition here
+                    transitionDuration: Duration(milliseconds: 200),
+                  ),
                 ],
               );
             },

@@ -12,7 +12,7 @@ class LaunchDetailsScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Image.asset('assets/images/capsule.jpg'),
+              Image.asset('assets/images/launches.png'),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
 

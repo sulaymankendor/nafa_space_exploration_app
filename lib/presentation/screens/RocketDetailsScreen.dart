@@ -12,7 +12,7 @@ class RocketDetailsScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Image.asset('assets/images/capsule.jpg'),
+              Image.asset('assets/images/rockets.jpg'),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
 

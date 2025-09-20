@@ -5,6 +5,10 @@ import 'package:spacex_flutter_app/presentation/screens/RocketsScreen.dart';
 import 'package:spacex_flutter_app/presentation/widgets/launches_screen/launch_card.dart';
 
 class Nav extends StatelessWidget {
+  String title;
+  String imageName;
+  String screen;
+  Nav({required this.title, required this.imageName, required this.screen});
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -12,7 +16,7 @@ class Nav extends StatelessWidget {
         InkWell(
           borderRadius: BorderRadius.circular(9999),
           onTap: () {
-            Get.toNamed('/launchDetails');
+            Get.toNamed(screen);
           },
           child: Container(
             padding: EdgeInsets.all(5),
@@ -23,7 +27,7 @@ class Nav extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(9999),
               child: Image.asset(
-                'assets/images/capsule.jpg',
+                'assets/images/${imageName}',
                 width: 65,
                 height: 65,
                 fit: BoxFit.cover,
@@ -32,7 +36,7 @@ class Nav extends StatelessWidget {
           ),
         ),
         Text(
-          'Capsules',
+          title,
           style: TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.bold,
