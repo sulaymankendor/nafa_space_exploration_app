@@ -24,20 +24,26 @@ class _DisplayRockets extends State<DisplayRockets> {
     return Consumer<RocketProvider>(
       builder: (context, rocketProvider, child) {
         if (rocketProvider.isLoading) {
-          return Container(
-            height: 300, // Give it explicit height
-            child: Center(child: CircularProgressIndicator()),
-          );
+          return const Center(child: CircularProgressIndicator());
         }
 
         if (rocketProvider.error != null) {
-          return Container(
-            height: 200,
-            child: Center(
-              child: Text(
-                'Error: ${rocketProvider.error}',
-                style: TextStyle(color: Colors.red),
-              ),
+          return Center(
+            child: Text(
+              'Error: ${rocketProvider.error}',
+              style: const TextStyle(color: Colors.red),
+              textAlign: TextAlign.center,
+            ),
+          );
+        }
+
+        // Add the null check here to handle the no-network scenario.
+        if (rocketProvider.rockets == null || rocketProvider.rockets!.isEmpty) {
+          return const Center(
+            child: Text(
+              'No rocket data available. Please check your network connection.',
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.grey),
             ),
           );
         }
@@ -45,8 +51,24 @@ class _DisplayRockets extends State<DisplayRockets> {
         if (screenWidth(context) < maxMobileScreenWidth) {
           return Container(
             width: containersMediaQuery(context),
-            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-            child: Expanded(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+            child: ListView.builder(
+              itemCount: rocketProvider.rockets!.length,
+              itemBuilder: (context, index) {
+                final rocket = rocketProvider.rockets![index];
+                return RocketCard(
+                  rocket: rocket,
+                  name: rocket['name'],
+                  description: rocket['description'],
+                );
+              },
+            ),
+          );
+        } else {
+          return Center(
+            child: Container(
+              width: containersMediaQuery(context),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
               child: ListView.builder(
                 itemCount: rocketProvider.rockets!.length,
                 itemBuilder: (context, index) {
@@ -57,26 +79,6 @@ class _DisplayRockets extends State<DisplayRockets> {
                     description: rocket['description'],
                   );
                 },
-              ),
-            ),
-          );
-        } else {
-          return Center(
-            child: Container(
-              width: containersMediaQuery(context),
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-              child: Expanded(
-                child: ListView.builder(
-                  itemCount: rocketProvider.rockets!.length,
-                  itemBuilder: (context, index) {
-                    final rocket = rocketProvider.rockets![index];
-                    return RocketCard(
-                      rocket: rocket,
-                      name: rocket['name'],
-                      description: rocket['description'],
-                    );
-                  },
-                ),
               ),
             ),
           );

@@ -24,32 +24,53 @@ class _DisplayCapsule extends State<DisplayCapsule> {
     return Consumer<CapsuleProvider>(
       builder: (context, capsuleProvider, child) {
         print('isLoading ${capsuleProvider.isLoading}');
+
         if (capsuleProvider.isLoading) {
-          return Container(
-            height: 300, // Give it explicit height
-            child: Center(child: CircularProgressIndicator()),
-          );
+          return const Center(child: CircularProgressIndicator());
         }
 
         if (capsuleProvider.error != null) {
-          return Container(
-            height: 200,
-            child: Center(
-              child: Text(
-                'Error: ${capsuleProvider.error}',
-                style: TextStyle(color: Colors.red),
-              ),
+          return Center(
+            child: Text(
+              'Error: ${capsuleProvider.error}',
+              style: const TextStyle(color: Colors.red),
+              textAlign: TextAlign.center,
             ),
           );
         }
 
-        // Test with a simple list first
-        // Test with a simple list first
+        // Handle the case where the list is null or empty due to no network.
+        if (capsuleProvider.capsule == null ||
+            capsuleProvider.capsule!.isEmpty) {
+          return const Center(
+            child: Text(
+              'No capsules found. Please check your network connection and try again.',
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.grey, fontSize: 16),
+            ),
+          );
+        }
+
         if (screenWidth(context) < maxMobileScreenWidth) {
           return Container(
             width: containersMediaQuery(context),
-            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-            child: Expanded(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+            child: ListView.builder(
+              itemCount: capsuleProvider.capsule!.length,
+              itemBuilder: (context, index) {
+                final capsule = capsuleProvider.capsule![index];
+                return CapsuleCard(
+                  type: capsule['type'],
+                  status: capsule['status'],
+                );
+              },
+            ),
+          );
+        } else {
+          return Center(
+            child: Container(
+              width: containersMediaQuery(context),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
               child: ListView.builder(
                 itemCount: capsuleProvider.capsule!.length,
                 itemBuilder: (context, index) {
@@ -59,27 +80,6 @@ class _DisplayCapsule extends State<DisplayCapsule> {
                     status: capsule['status'],
                   );
                 },
-              ),
-            ),
-          );
-        } else {
-          return Expanded(
-            child: Center(
-              child: Container(
-                width: containersMediaQuery(context),
-                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-                child: Expanded(
-                  child: ListView.builder(
-                    itemCount: capsuleProvider.capsule!.length,
-                    itemBuilder: (context, index) {
-                      final capsule = capsuleProvider.capsule![index];
-                      return CapsuleCard(
-                        type: capsule['type'],
-                        status: capsule['status'],
-                      );
-                    },
-                  ),
-                ),
               ),
             ),
           );

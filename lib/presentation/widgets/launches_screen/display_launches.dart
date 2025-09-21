@@ -13,7 +13,7 @@ class _DisplayLaunchesState extends State<DisplayLaunches> {
   @override
   void initState() {
     super.initState();
-    // Fetch launchess when the widget loads
+    // Fetch launches when the widget loads
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<LaunchProvider>().fetchlaunchesData();
     });
@@ -24,29 +24,53 @@ class _DisplayLaunchesState extends State<DisplayLaunches> {
     return Consumer<LaunchProvider>(
       builder: (context, launchProvider, child) {
         if (launchProvider.isLoading) {
-          return Container(
-            height: 200, // Give it explicit height
-            child: Center(child: CircularProgressIndicator()),
-          );
+          return const Center(child: CircularProgressIndicator());
         }
 
         if (launchProvider.error != null) {
-          return Container(
-            height: 200,
-            child: Center(
-              child: Text(
-                'Error: ${launchProvider.error}',
-                style: TextStyle(color: Colors.red),
-              ),
+          return Center(
+            child: Text(
+              'Error: ${launchProvider.error}',
+              style: const TextStyle(color: Colors.red),
+              textAlign: TextAlign.center,
             ),
           );
         }
 
+        // Add the null check here to prevent crashes
+        if (launchProvider.launches == null ||
+            launchProvider.launches!.isEmpty) {
+          return const Center(
+            child: Text(
+              'No launch data available. Please check your network connection.',
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.grey),
+            ),
+          );
+        }
+
+        // The rest of the code is now safe to execute
         if (screenWidth(context) < maxMobileScreenWidth) {
           return Container(
-            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
             width: containersMediaQuery(context),
-            child: Expanded(
+            child: ListView.builder(
+              itemCount: launchProvider.launches!.length,
+              itemBuilder: (context, index) {
+                final launch = launchProvider.launches![index];
+                return LaunchCard(
+                  launches: launch,
+                  missionName: launch['mission_name'],
+                  launchDate: launch['launch_date_local'],
+                );
+              },
+            ),
+          );
+        } else {
+          return Center(
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+              width: containersMediaQuery(context),
               child: ListView.builder(
                 itemCount: launchProvider.launches!.length,
                 itemBuilder: (context, index) {
@@ -60,32 +84,8 @@ class _DisplayLaunchesState extends State<DisplayLaunches> {
               ),
             ),
           );
-        } else {
-          return Center(
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-              width: containersMediaQuery(context),
-              child: Expanded(
-                child: ListView.builder(
-                  itemCount: launchProvider.launches!.length,
-                  itemBuilder: (context, index) {
-                    final launch = launchProvider.launches![index];
-                    return LaunchCard(
-                      launches: launch,
-                      missionName: launch['mission_name'],
-                      launchDate: launch['launch_date_local'],
-                    );
-                  },
-                ),
-              ),
-            ),
-          );
         }
       },
     );
   }
 }
-
-
-
-// spacing: 15,
