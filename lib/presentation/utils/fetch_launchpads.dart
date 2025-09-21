@@ -18,7 +18,12 @@ Future<List<Map<String, dynamic>>?> fetchLaunchpads() async {
     }
 
     if (result.data != null && result.data!['launchpads'] != null) {
-      return List<Map<String, dynamic>>.from(result.data!['launchpads']);
+      final List<dynamic> launchpadsJson =
+          result.data!['launchpads'] as List<dynamic>;
+      final List<Map<String, dynamic>> launchpads = launchpadsJson
+          .map((json) => json as Map<String, dynamic>)
+          .toList();
+      return launchpads;
     }
 
     return null;

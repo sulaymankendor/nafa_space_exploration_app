@@ -4,7 +4,11 @@ import 'package:provider/provider.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:spacex_flutter_app/presentation/providers/capsule_provider.dart';
+import 'package:spacex_flutter_app/presentation/providers/launch_provider.dart';
+import 'package:spacex_flutter_app/presentation/providers/rocket_provider.dart';
 import 'package:spacex_flutter_app/presentation/screens/CapsulesScreen.dart';
+import 'package:spacex_flutter_app/presentation/screens/FavouritesScreen.dart';
 import 'package:spacex_flutter_app/presentation/screens/HomeScreen.dart';
 import 'package:spacex_flutter_app/presentation/screens/LaunchDetailsScreen.dart';
 import 'package:spacex_flutter_app/presentation/screens/LaunchesScreen.dart';
@@ -12,6 +16,7 @@ import 'package:spacex_flutter_app/presentation/screens/RocketDetailsScreen.dart
 import 'package:spacex_flutter_app/presentation/screens/RocketsScreen.dart';
 import 'package:spacex_flutter_app/presentation/screens/SearchScreen.dart';
 import 'package:spacex_flutter_app/presentation/utils/animation_utils.dart';
+import 'package:spacex_flutter_app/presentation/utils/fetch_rockets.dart';
 import 'package:spacex_flutter_app/presentation/widgets/app_bars/home_app_bar.dart';
 
 import 'core/utils/theme.dart';
@@ -73,130 +78,168 @@ class _SpaceXAppState extends State<SpaceXApp> {
         ChangeNotifierProvider(create: (_) => ThemeProvider()),
         ChangeNotifierProvider(create: (_) => _languageProvider),
         // TODO: Add other providers as you implement them
-        // ChangeNotifierProvider(create: (_) => MissionProvider()),
-        // ChangeNotifierProvider(create: (_) => RocketProvider()),
-        // ChangeNotifierProvider(create: (_) => LaunchProvider()),
+        ChangeNotifierProvider(create: (_) => CapsuleProvider()),
+        ChangeNotifierProvider(create: (_) => RocketProvider()),
+        ChangeNotifierProvider(create: (_) => LaunchProvider()),
       ],
-      child: Consumer2<ThemeProvider, LanguageProvider>(
-        builder: (context, themeProvider, languageProvider, child) {
-          return Sizer(
-            builder: (context, orientation, deviceType) {
-              return GetMaterialApp(
-                title: 'SpaceX Flutter App',
-                debugShowCheckedModeBanner: false,
-                theme: AppTheme.lightTheme,
-                darkTheme: AppTheme.darkTheme,
-                themeMode: themeProvider.themeMode,
-                locale: _locale,
-                localizationsDelegates: const [
-                  SpaceXLocalization.delegate,
-                  GlobalMaterialLocalizations.delegate,
-                  GlobalWidgetsLocalizations.delegate,
-                  GlobalCupertinoLocalizations.delegate,
-                ],
-                supportedLocales: const [
-                  Locale('en', 'US'),
-                  Locale('fr', 'FR'),
-                ],
+      child:
+          Consumer5<
+            ThemeProvider,
+            LanguageProvider,
+            CapsuleProvider,
+            RocketProvider,
+            LaunchProvider
+          >(
+            builder:
+                (
+                  context,
+                  themeProvider,
+                  languageProvider,
+                  capsuleProvider,
+                  rocketProvider,
+                  launchProvider,
+                  child,
+                ) {
+                  return Sizer(
+                    builder: (context, orientation, deviceType) {
+                      return GetMaterialApp(
+                        title: 'SpaceX Flutter App',
+                        debugShowCheckedModeBanner: false,
+                        theme: AppTheme.lightTheme,
+                        darkTheme: AppTheme.darkTheme,
+                        themeMode: themeProvider.themeMode,
+                        locale: _locale,
+                        localizationsDelegates: const [
+                          SpaceXLocalization.delegate,
+                          GlobalMaterialLocalizations.delegate,
+                          GlobalWidgetsLocalizations.delegate,
+                          GlobalCupertinoLocalizations.delegate,
+                        ],
+                        supportedLocales: const [
+                          Locale('en', 'US'),
+                          Locale('fr', 'FR'),
+                        ],
 
-                home: Scaffold(
-                  appBar: HomeAppBar(
-                    leadingText: 'SpaceX',
-                    actions: [
-                      IconButton(
-                        onPressed: () {
-                          themeProvider.toggleTheme();
-                        },
-                        icon: Icon(Icons.dark_mode),
-                      ),
-                    ],
-                  ),
-                  body: true ? HomeScreen() : SplashScreen(),
-                  bottomNavigationBar: BottomNavigationBar(
-                    onTap: (int index) {
-                      switch (index) {
-                        case 2:
-                          Get.toNamed('/searchScreen');
+                        home: Scaffold(
+                          appBar: HomeAppBar(
+                            leadingText: 'SpaceX',
+                            actions: [
+                              IconButton(
+                                onPressed: () {
+                                  themeProvider.toggleTheme();
+                                },
+                                icon: Icon(
+                                  themeProvider.isDarkMode
+                                      ? Icons.sunny
+                                      : Icons.dark_mode,
+                                ),
+                              ),
+                            ],
+                          ),
+                          body: HomeScreen(),
+                          bottomNavigationBar: BottomNavigationBar(
+                            onTap: (int index) {
+                              switch (index) {
+                                case 1:
+                                  Get.toNamed('/favourites');
 
-                          break;
-                        default:
-                      }
+                                  break;
+                                case 2:
+                                  Get.toNamed('/searchScreen');
+
+                                  break;
+                                default:
+                              }
+                            },
+                            items: [
+                              BottomNavigationBarItem(
+                                icon: Icon(Icons.home),
+                                label: 'Home',
+                              ),
+                              BottomNavigationBarItem(
+                                icon: Icon(Icons.favorite),
+                                label: 'Favourites',
+                              ),
+                              BottomNavigationBarItem(
+                                icon: Icon(Icons.search),
+                                label: 'Search',
+                              ),
+                            ],
+                          ),
+                          // appBar:Header(),
+                        ),
+                        getPages: [
+                          GetPage(
+                            name: '/',
+                            page: () => const SplashScreen(),
+                            transition:
+                                Transition.fadeIn, // Apply the transition here
+                            transitionDuration: Duration(milliseconds: 100),
+                          ),
+                          GetPage(
+                            name: '/home',
+                            page: () => HomeScreen(),
+                            transition:
+                                Transition.fadeIn, // Apply the transition here
+                            transitionDuration: Duration(milliseconds: 100),
+                          ),
+                          GetPage(
+                            name: '/rockets',
+                            page: () => RocketsScreen(),
+                            transition:
+                                Transition.fadeIn, // Apply the transition here
+                            transitionDuration: Duration(milliseconds: 100),
+                          ),
+                          GetPage(
+                            name: '/launches',
+                            page: () => LaunchesScreen(),
+                            transition:
+                                Transition.fadeIn, // Apply the transition here
+                            transitionDuration: Duration(milliseconds: 100),
+                          ),
+                          GetPage(
+                            name: '/capsules',
+                            page: () => CapsulesScreen(),
+                            transition:
+                                Transition.fadeIn, // Apply the transition here
+                            transitionDuration: Duration(milliseconds: 100),
+                          ),
+                          GetPage(
+                            name: '/rocketDetails',
+                            page: () => RocketDetailsScreen(),
+                            transition:
+                                Transition.fadeIn, // Apply the transition here
+                            transitionDuration: Duration(milliseconds: 100),
+                          ),
+                          GetPage(
+                            name: '/launchDetails',
+                            page: () => LaunchDetailsScreen(),
+                            transition:
+                                Transition.fadeIn, // Apply the transition here
+                            transitionDuration: Duration(milliseconds: 100),
+                          ),
+                          GetPage(
+                            name: '/searchScreen',
+                            page: () => SearchScreen(),
+                            transition: Transition
+                                .fadeIn, // Use a valid Transition enum
+                            customTransition:
+                                CustomSlideTransition(), // Provide your custom transition here
+                            transitionDuration: Duration(milliseconds: 200),
+                          ),
+                          GetPage(
+                            name: '/favourites',
+                            page: () => FavouritesScreen(),
+                            transition:
+                                Transition.fadeIn, // Apply the transition here
+                            transitionDuration: Duration(milliseconds: 100),
+                          ),
+                        ],
+                      );
                     },
-                    items: [
-                      BottomNavigationBarItem(
-                        icon: Icon(Icons.home),
-                        label: 'Home',
-                      ),
-                      BottomNavigationBarItem(
-                        icon: Icon(Icons.favorite),
-                        label: 'Favourites',
-                      ),
-                      BottomNavigationBarItem(
-                        icon: Icon(Icons.search),
-                        label: 'Search',
-                      ),
-                    ],
-                  ),
-                  // appBar:Header(),
-                ),
-                getPages: [
-                  GetPage(
-                    name: '/',
-                    page: () => const SplashScreen(),
-                    transition: Transition.fadeIn, // Apply the transition here
-                    transitionDuration: Duration(milliseconds: 100),
-                  ),
-                  GetPage(
-                    name: '/home',
-                    page: () => HomeScreen(),
-                    transition: Transition.fadeIn, // Apply the transition here
-                    transitionDuration: Duration(milliseconds: 100),
-                  ),
-                  GetPage(
-                    name: '/rockets',
-                    page: () => RocketsScreen(),
-                    transition: Transition.fadeIn, // Apply the transition here
-                    transitionDuration: Duration(milliseconds: 100),
-                  ),
-                  GetPage(
-                    name: '/launches',
-                    page: () => LaunchesScreen(),
-                    transition: Transition.fadeIn, // Apply the transition here
-                    transitionDuration: Duration(milliseconds: 100),
-                  ),
-                  GetPage(
-                    name: '/capsules',
-                    page: () => CapsulesScreen(),
-                    transition: Transition.fadeIn, // Apply the transition here
-                    transitionDuration: Duration(milliseconds: 100),
-                  ),
-                  GetPage(
-                    name: '/rocketDetails',
-                    page: () => RocketDetailsScreen(),
-                    transition: Transition.fadeIn, // Apply the transition here
-                    transitionDuration: Duration(milliseconds: 100),
-                  ),
-                  GetPage(
-                    name: '/launchDetails',
-                    page: () => LaunchDetailsScreen(),
-                    transition: Transition.fadeIn, // Apply the transition here
-                    transitionDuration: Duration(milliseconds: 100),
-                  ),
-                  GetPage(
-                    name: '/searchScreen',
-                    page: () => SearchScreen(),
-                    transition:
-                        Transition.fadeIn, // Use a valid Transition enum
-                    customTransition:
-                        CustomSlideTransition(), // Provide your custom transition here
-                    transitionDuration: Duration(milliseconds: 200),
-                  ),
-                ],
-              );
-            },
-          );
-        },
-      ),
+                  );
+                },
+          ),
     );
   }
 }

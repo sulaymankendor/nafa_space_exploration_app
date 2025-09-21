@@ -7,12 +7,7 @@ class LaunchesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(title: 'Launches'),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-          child: DisplayLaunches(),
-        ),
-      ),
+      body: SafeArea(child: DisplayLaunches()),
     );
   }
 }

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 class CapsuleCard extends StatelessWidget {
+  String? type;
+  String? status;
+  CapsuleCard({required this.type, required this.status});
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -18,11 +21,11 @@ class CapsuleCard extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Earth', style: Theme.of(context).textTheme.titleLarge),
+                Text(type!, style: Theme.of(context).textTheme.bodyLarge),
                 Container(
-                  width: 200, //to be changed to relative the screen
+                  width: 200,
                   child: Text(
-                    'Jakdjf ajds lfal dslf jalkds flads lkflak dsfjowej a defd',
+                    status!,
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
                 ),

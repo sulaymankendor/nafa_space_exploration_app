@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:spacex_flutter_app/presentation/utils/responsive_helpers.dart';
 
-import '../../../utils/responsive_helpers.dart';
-
-class LaunchPadCard extends StatelessWidget {
+class FavouriteCard extends StatelessWidget {
+  String? name;
+  String? description;
+  FavouriteCard({required this.name, required this.description});
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -14,19 +16,16 @@ class LaunchPadCard extends StatelessWidget {
         padding: EdgeInsets.all(20),
         child: Row(
           spacing: 15,
-
           children: [
             Icon(Icons.rocket_launch, size: 40),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Earth', style: Theme.of(context).textTheme.titleLarge),
+                Text(name!, style: Theme.of(context).textTheme.bodyLarge),
                 Container(
-                  width: textContainerScreenWidth(
-                    context,
-                  ), //to be changed to relative the screen
+                  width: textContainerScreenWidth(context),
                   child: Text(
-                    'Jakdjf ajds lfal dslf jalkds flads lkflak dsfjowej a defd',
+                    description!,
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
                 ),

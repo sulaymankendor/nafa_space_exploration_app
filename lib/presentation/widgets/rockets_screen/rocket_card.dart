@@ -1,13 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/utils.dart';
+import 'package:spacex_flutter_app/presentation/utils/responsive_helpers.dart';
 
 class RocketCard extends StatelessWidget {
+  dynamic rocket;
+  String? name;
+  String? description;
+  RocketCard({
+    required this.name,
+    required this.description,
+    required this.rocket,
+  });
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.toNamed('/rocketDetails');
+        Get.toNamed('/rocketDetails', arguments: rocket);
       },
       child: Card(
         color: Theme.of(context).cardTheme.color,
@@ -24,12 +33,16 @@ class RocketCard extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Earth', style: Theme.of(context).textTheme.titleLarge),
+                  Text(name!, style: Theme.of(context).textTheme.bodyLarge),
                   Container(
-                    width: 200, //to be changed to relative the screen
+                    width: textContainerScreenWidth(
+                      context,
+                    ), //to be changed to relative the screen
                     child: Text(
-                      'Jakdjf ajds lfal dslf jalkds flads lkflak dsfjowej a defd',
+                      description!,
                       style: Theme.of(context).textTheme.bodyMedium,
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
                 ],

@@ -7,12 +7,7 @@ class CapsulesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(title: 'Capsules'),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-          child: DisplayCapsules(),
-        ),
-      ),
+      body: SafeArea(child: DisplayCapsule()),
     );
   }
 }

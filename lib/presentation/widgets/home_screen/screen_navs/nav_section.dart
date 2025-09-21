@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:spacex_flutter_app/presentation/utils/responsive_helpers.dart';
 
 import 'package:spacex_flutter_app/presentation/widgets/home_screen/screen_navs/nav.dart';
 
@@ -7,6 +8,7 @@ class NavSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(top: 20),
+      width: homeNavSectionMediaQuery(context),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

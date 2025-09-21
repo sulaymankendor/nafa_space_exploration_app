@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:spacex_flutter_app/presentation/utils/responsive_helpers.dart';
 
 class LandPadCard extends StatelessWidget {
   @override
@@ -20,7 +21,9 @@ class LandPadCard extends StatelessWidget {
               children: [
                 Text('Earth', style: Theme.of(context).textTheme.titleLarge),
                 Container(
-                  width: 200, //to be changed to relative the screen
+                  width: textContainerScreenWidth(
+                    context,
+                  ), //to be changed to relative the screen
                   child: Text(
                     'Jakdjf ajds lfal dslf jalkds flads lkflak dsfjowej a defd',
                     style: Theme.of(context).textTheme.bodyMedium,

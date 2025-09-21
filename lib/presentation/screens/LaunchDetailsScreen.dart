@@ -1,99 +1,298 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:spacex_flutter_app/presentation/utils/fotmatDate.dart';
+import 'package:spacex_flutter_app/presentation/utils/responsive_helpers.dart';
 import 'package:spacex_flutter_app/presentation/widgets/app_bars/custom_app_bar.dart';
 
 class LaunchDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final dynamic launch = Get.arguments as Map<String, dynamic>;
     return Scaffold(
       appBar: CustomAppBar(title: 'FalconSat'),
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                width: double.infinity,
-                child: Image.asset(
-                  'assets/images/launches.png',
-                  width: double.infinity,
-                  height: 230,
-                  fit: BoxFit.cover,
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-
-                child: Column(
-                  spacing: 8,
+          child: screenWidth(context) < maxMobileScreenWidth
+              ? Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        IconButton(
-                          onPressed: () {
-                            // Get.toNamed('/rocketDetails');
-                            print('liked');
-                          },
-                          icon: Icon(Icons.favorite, size: 32),
-                        ),
-                      ],
-                    ),
                     Container(
-                      margin: EdgeInsets.only(bottom: 6),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Falcon 1',
-                            style: Theme.of(context).textTheme.headlineLarge,
-                          ),
-                        ],
+                      width: containersMediaQuery(context),
+                      child: Image.asset(
+                        'assets/images/launches.png',
+                        width: double.infinity,
+                        height: 230,
+                        fit: BoxFit.cover,
                       ),
                     ),
                     Container(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 30,
-                        vertical: 20,
-                      ),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.blue.withOpacity(0.4)),
-                        borderRadius: BorderRadius.circular(30),
-                        color: Colors.blueAccent.withOpacity(0.1),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          _statItem(context, Icons.rocket_launch, 'rocket'),
-                          _statItem(context, Icons.timelapse, '12:20pm'),
-                          _statItem(context, Icons.date_range_sharp, '2023'),
-                        ],
-                      ),
-                    ),
+                      width: containersMediaQuery(context),
 
-                    Container(
-                      margin: EdgeInsets.only(top: 15),
-                      child: Column(
-                        spacing: 5,
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          Text(
-                            'Details',
-                            style: Theme.of(context).textTheme.headlineMedium,
+                          Container(
+                            padding: EdgeInsets.all(8),
+                            margin: EdgeInsets.only(top: 10, right: 20),
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: Colors.blue.withOpacity(0.4),
+                              ),
+                              borderRadius: BorderRadius.circular(30),
+                              color: Colors.blueAccent.withOpacity(0.1),
+                            ),
+                            child: Text(
+                              formatLaunchDate(launch['launch_date_local']),
+                              style: const TextStyle(
+                                fontSize: 11,
+                                fontWeight: FontWeight.w700,
+                                color: Colors.blueAccent,
+                              ),
+                            ),
                           ),
-                          Text(
-                            'The Falcon 1 was an expendable launch jasdjhas dfashdkjfhkjas hdkjfhkjsadkfkjas hdkjfkdfasfdkjadsjfhsadfasd asdhfakjdsfkhaskdfsystem privately developed and manufactured by SpaceX during 2006-2009. On 28 September 2008, Falcon 1 became the first privately-developed liquid-fuel launch vehicle to go into orbit around the Earth.The Falcon 1 was an expendable launch jasdjhas dfashdkjfhkjas hdkjfhkjsadkfkjas hdkjfkdfasfdkjadsjfhsadfasd asdhfakjdsfkhaskdfsystem privately developed and manufactured by SpaceX during 2006-2009. On 28 September 2008, Falcon 1 became the first privately-developed liquid-fuel launch vehicle to go into orbit around the Earth.The Falcon 1 was an expendable launch jasdjhas dfashdkjfhkjas hdkjfhkjsadkfkjas hdkjfkdfasfdkjadsjfhsadfasd asdhfakjdsfkhaskdfsystem privately developed and manufactured by SpaceX during 2006-2009. On 28 September 2008, Falcon 1 became the first privately-developed liquid-fuel launch vehicle to go into orbit around the Earth.',
-                            style: Theme.of(context).textTheme.bodyLarge,
+                          IconButton(
+                            onPressed: () {
+                              print('asd');
+                            },
+                            icon: Icon(Icons.favorite),
                           ),
                         ],
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 20,
+                        vertical: 5,
+                      ),
+
+                      child: Container(
+                        child: Column(
+                          spacing: 8,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              margin: EdgeInsets.only(bottom: 6),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    launch['rocket']['rocket_name'] ??
+                                        'Name was not provided',
+                                    style: Theme.of(
+                                      context,
+                                    ).textTheme.headlineLarge,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              width: containersMediaQuery(context),
+
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 30,
+                                vertical: 20,
+                              ),
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: Colors.blue.withOpacity(0.4),
+                                ),
+                                borderRadius: BorderRadius.circular(30),
+                                color: Colors.blueAccent.withOpacity(0.1),
+                              ),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  _statItem(
+                                    context,
+                                    Icons.rocket_launch,
+                                    launch['rocket']['rocket_type'] ?? 'N/A',
+                                  ),
+                                  _statItem(
+                                    context,
+                                    Icons.timelapse,
+                                    formatLaunchDate(
+                                      launch['launch_date_local'],
+                                    ),
+                                  ),
+                                  _statItem(
+                                    context,
+                                    Icons.date_range_sharp,
+                                    launch['launch_year'] ?? 'N/A',
+                                  ),
+                                ],
+                              ),
+                            ),
+
+                            Container(
+                              width: containersMediaQuery(context),
+                              margin: EdgeInsets.only(top: 15),
+                              child: Column(
+                                spacing: 5,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Details',
+                                    style: Theme.of(
+                                      context,
+                                    ).textTheme.headlineMedium,
+                                  ),
+                                  Text(
+                                    launch['details'] ??
+                                        'Details was not Provided',
+                                    style: Theme.of(
+                                      context,
+                                    ).textTheme.bodyLarge,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ],
+                )
+              : Center(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        width: screenDetailsWidthMediaQuery(context),
+
+                        child: Image.asset(
+                          'assets/images/launches.png',
+                          width: double.infinity,
+                          height: 230,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      Container(
+                        width: screenDetailsWidthMediaQuery(context),
+                        margin: EdgeInsets.only(right: 20),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Container(
+                              padding: EdgeInsets.all(8),
+                              margin: EdgeInsets.only(top: 10),
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: Colors.blue.withOpacity(0.4),
+                                ),
+                                borderRadius: BorderRadius.circular(30),
+                                color: Colors.blueAccent.withOpacity(0.1),
+                              ),
+                              child: Text(
+                                formatLaunchDate(launch['launch_date_local']),
+                                style: const TextStyle(
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.blueAccent,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 20,
+                          vertical: 5,
+                        ),
+
+                        child: Container(
+                          child: Column(
+                            spacing: 8,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                margin: EdgeInsets.only(bottom: 6),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      launch['rocket']['rocket_name'] ??
+                                          'Name was not provided',
+                                      style: Theme.of(
+                                        context,
+                                      ).textTheme.headlineLarge,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                width: screenDetailsStatWidthMediaQuery(
+                                  context,
+                                ),
+
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 30,
+                                  vertical: 20,
+                                ),
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: Colors.blue.withOpacity(0.4),
+                                  ),
+                                  borderRadius: BorderRadius.circular(30),
+                                  color: Colors.blueAccent.withOpacity(0.1),
+                                ),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    _statItem(
+                                      context,
+                                      Icons.rocket_launch,
+                                      launch['rocket']['rocket_type'] ?? 'N/A',
+                                    ),
+                                    _statItem(
+                                      context,
+                                      Icons.timelapse,
+                                      formatLaunchDate(
+                                            launch['launch_date_local'],
+                                          ) ??
+                                          'N/A',
+                                    ),
+                                    _statItem(
+                                      context,
+                                      Icons.date_range_sharp,
+                                      launch['launch_year'] ?? 'N/A',
+                                    ),
+                                  ],
+                                ),
+                              ),
+
+                              Container(
+                                width: screenDetailsWidthMediaQuery(context),
+                                margin: EdgeInsets.only(top: 15),
+                                child: Column(
+                                  spacing: 5,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Details',
+                                      style: Theme.of(
+                                        context,
+                                      ).textTheme.headlineMedium,
+                                    ),
+                                    Text(
+                                      launch['details'] ??
+                                          'Details was not Provided',
+                                      style: Theme.of(
+                                        context,
+                                      ).textTheme.bodyLarge,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          ),
         ),
       ),
     );

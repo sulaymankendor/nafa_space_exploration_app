@@ -7,12 +7,7 @@ class RocketsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(title: 'Rockets'),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-          child: DisplayRockets(),
-        ),
-      ),
+      body: SafeArea(child: DisplayRockets()),
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:spacex_flutter_app/presentation/utils/fetch_launches.dart';
 
 // TODO: Implement LaunchProvider
 // This is a placeholder for the launch state management
@@ -10,17 +11,32 @@ import 'package:flutter/material.dart';
 
 class LaunchProvider extends ChangeNotifier {
   // TODO: Add launch-related state variables
-  // List<Launch> _launches = [];
-  // bool _isLoading = false;
-  // String? _error;
+  List<Map<String, dynamic>>? _launches = [];
+  bool _isLoading = false;
+  String? _error;
 
   // TODO: Add getters
-  // List<Launch> get launches => _launches;
-  // bool get isLoading => _isLoading;
-  // String? get error => _error;
+  List<Map<String, dynamic>>? get launches =>
+      _launches != null ? _launches : null;
+  bool get isLoading => _isLoading;
+  String? get error => _error;
 
   // TODO: Add methods
-  // Future<void> fetchLaunches()
+  Future<void> fetchlaunchesData() async {
+    try {
+      List<Map<String, dynamic>>? listOfLaunches = await fetchLaunches(
+        _isLoading,
+        _error,
+      );
+      _launches = listOfLaunches;
+    } catch (e) {
+      _isLoading = false;
+      _error = 'An unexpected error occurred: $e';
+    }
+
+    notifyListeners();
+  }
+
   // Future<void> fetchUpcomingLaunches()
   // Future<void> fetchPastLaunches()
   // Future<void> fetchLaunchById(String id)

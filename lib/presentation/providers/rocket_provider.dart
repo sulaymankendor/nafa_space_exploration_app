@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:spacex_flutter_app/presentation/utils/fetch_rockets.dart';
 
 // TODO: Implement RocketProvider
 // This is a placeholder for the rocket state management
@@ -10,17 +11,30 @@ import 'package:flutter/material.dart';
 
 class RocketProvider extends ChangeNotifier {
   // TODO: Add rocket-related state variables
-  // List<Rocket> _rockets = [];
-  // bool _isLoading = false;
-  // String? _error;
+  List<Map<String, dynamic>>? _rockets = [];
+  bool _isLoading = false;
+  String? _error;
 
   // TODO: Add getters
-  // List<Rocket> get rockets => _rockets;
-  // bool get isLoading => _isLoading;
-  // String? get error => _error;
+  List<Map<String, dynamic>>? get rockets => _rockets != null ? _rockets : null;
+  bool get isLoading => _isLoading;
+  String? get error => _error;
 
   // TODO: Add methods
-  // Future<void> fetchRockets()
+  Future<void> fetchRocketsData() async {
+    try {
+      List<Map<String, dynamic>>? listOfRockets = await fetchRockets(
+        _isLoading,
+        _error,
+      );
+      _rockets = listOfRockets;
+    } catch (e) {
+      _isLoading = false;
+      _error = 'An unexpected error occurred: $e';
+    }
+
+    notifyListeners();
+  }
   // Future<void> fetchRocketById(String id)
   // void clearError()
   // void refreshRockets()

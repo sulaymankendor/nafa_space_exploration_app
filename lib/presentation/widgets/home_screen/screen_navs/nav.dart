@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:spacex_flutter_app/presentation/screens/LaunchesScreen.dart';
-import 'package:spacex_flutter_app/presentation/screens/RocketsScreen.dart';
 import 'package:spacex_flutter_app/presentation/widgets/launches_screen/launch_card.dart';
 
 class Nav extends StatelessWidget {

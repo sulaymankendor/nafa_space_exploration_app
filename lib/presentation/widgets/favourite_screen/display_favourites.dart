@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:spacex_flutter_app/presentation/providers/rocket_provider.dart';
 import 'package:spacex_flutter_app/presentation/utils/responsive_helpers.dart';
+import 'package:spacex_flutter_app/presentation/widgets/favourite_screen/favourite_card.dart';
 import 'package:spacex_flutter_app/presentation/widgets/rockets_screen/rocket_card.dart';
 import 'package:provider/provider.dart';
 
-class DisplayRockets extends StatefulWidget {
+class DisplayFavourites extends StatefulWidget {
   @override
-  State<DisplayRockets> createState() => _DisplayRockets();
+  State<DisplayFavourites> createState() => _DisplayFavourites();
 }
 
-class _DisplayRockets extends State<DisplayRockets> {
+class _DisplayFavourites extends State<DisplayFavourites> {
   @override
   void initState() {
     super.initState();
@@ -58,10 +59,10 @@ class _DisplayRockets extends State<DisplayRockets> {
                 itemCount: rocketProvider.rockets!.length,
                 itemBuilder: (context, index) {
                   final rocket = rocketProvider.rockets![index];
-                  return RocketCard(
-                    rocket: rocket,
-                    name: rocket['name'],
-                    description: rocket['description'],
+                  return FavouriteCard(
+                    name: "Lorem Ipsum is simply dummy",
+                    description:
+                        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was",
                   );
                 },
               ),
@@ -77,10 +78,10 @@ class _DisplayRockets extends State<DisplayRockets> {
                   itemCount: rocketProvider.rockets!.length,
                   itemBuilder: (context, index) {
                     final rocket = rocketProvider.rockets![index];
-                    return RocketCard(
-                      rocket: rocket,
-                      name: rocket['name'],
-                      description: rocket['description'],
+                    return FavouriteCard(
+                      name: 'favourite',
+                      description:
+                          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was",
                     );
                   },
                 ),

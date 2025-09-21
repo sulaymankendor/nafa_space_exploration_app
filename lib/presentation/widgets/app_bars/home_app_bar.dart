@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:spacex_flutter_app/presentation/utils/responsive_helpers.dart';
 
 class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   // Use 'final' for properties that won't change after construction.
@@ -15,7 +16,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return Container(
       // The background color for your app bar
-      color: Colors.transparent,
+      color: const Color.fromARGB(0, 195, 85, 85),
       // Ensure content doesn't overlap with the system status bar
       child: SafeArea(
         child: Padding(
