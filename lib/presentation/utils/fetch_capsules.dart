@@ -3,8 +3,7 @@ import 'package:spacex_flutter_app/core/network/graphql_client.dart';
 import 'package:spacex_flutter_app/data/queries/capsules_query.dart';
 
 // Add this method to your GraphQLService class
-Future<List<Map<String, dynamic>>?> fetchCapsules(isLoading, error) async {
-  isLoading = true;
+Future<List<Map<String, dynamic>>?> fetchCapsules(error) async {
   try {
     final QueryResult result = await GraphQLService.client.query(
       QueryOptions(
@@ -25,7 +24,6 @@ Future<List<Map<String, dynamic>>?> fetchCapsules(isLoading, error) async {
       } else {
         message = 'Something went wrong. Please try again.';
       }
-      isLoading = false;
       error = message;
       return null;
     }
@@ -36,7 +34,6 @@ Future<List<Map<String, dynamic>>?> fetchCapsules(isLoading, error) async {
 
     return null;
   } catch (e) {
-    isLoading = false;
     error = '';
     return null;
   }

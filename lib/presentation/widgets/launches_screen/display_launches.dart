@@ -42,13 +42,6 @@ class _DisplayLaunchesState extends State<DisplayLaunches> {
           );
         }
 
-        if (launchProvider.launches == null ||
-            launchProvider.launches!.isEmpty) {
-          return Container(
-            height: 200,
-            child: Center(child: Text('No launches found')),
-          );
-        }
         if (screenWidth(context) < maxMobileScreenWidth) {
           return Container(
             padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),

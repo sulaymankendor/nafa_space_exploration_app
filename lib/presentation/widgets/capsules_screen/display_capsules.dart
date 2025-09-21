@@ -23,9 +23,10 @@ class _DisplayCapsule extends State<DisplayCapsule> {
   Widget build(BuildContext context) {
     return Consumer<CapsuleProvider>(
       builder: (context, capsuleProvider, child) {
+        print('isLoading ${capsuleProvider.isLoading}');
         if (capsuleProvider.isLoading) {
           return Container(
-            height: 200, // Give it explicit height
+            height: 300, // Give it explicit height
             child: Center(child: CircularProgressIndicator()),
           );
         }
@@ -39,14 +40,6 @@ class _DisplayCapsule extends State<DisplayCapsule> {
                 style: TextStyle(color: Colors.red),
               ),
             ),
-          );
-        }
-
-        if (capsuleProvider.capsule == null ||
-            capsuleProvider.capsule!.isEmpty) {
-          return Container(
-            height: 200,
-            child: Center(child: Text('No capsules found')),
           );
         }
 

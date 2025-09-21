@@ -34,7 +34,7 @@ double homeNavSectionMediaQuery(context) {
 double textContainerScreenWidth(context) {
   double width = screenWidth(context);
   if (width <= maxMobileScreenWidth) {
-    return width * 0.7;
+    return width * 0.5;
   } else if (width <= maxTabletScreenWidth) {
     return width * 0.4;
   } else {

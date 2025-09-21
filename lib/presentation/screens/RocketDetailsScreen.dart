@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:spacex_flutter_app/presentation/utils/responsive_helpers.dart';
 import 'package:spacex_flutter_app/presentation/widgets/app_bars/custom_app_bar.dart';
 import 'package:get/get.dart';
+import 'package:spacex_flutter_app/presentation/widgets/reusables/like_button.dart';
 
 class RocketDetailsScreen extends StatelessWidget {
   @override
@@ -33,25 +34,34 @@ class RocketDetailsScreen extends StatelessWidget {
                         spacing: 10,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Container(
-                            margin: EdgeInsets.only(bottom: 6),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  rocket['company'],
-                                  style: Theme.of(
-                                    context,
-                                  ).textTheme.headlineLarge,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                margin: EdgeInsets.only(bottom: 6),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      rocket['company'],
+                                      style: Theme.of(
+                                        context,
+                                      ).textTheme.headlineLarge,
+                                    ),
+                                    Text(
+                                      // 'Republic of the Marshall Islands',
+                                      rocket['country'],
+                                      style: Theme.of(
+                                        context,
+                                      ).textTheme.bodyMedium,
+                                    ),
+                                  ],
                                 ),
-                                Text(
-                                  // 'Republic of the Marshall Islands',
-                                  rocket['country'],
-                                  style: Theme.of(context).textTheme.bodyMedium,
-                                ),
-                              ],
-                            ),
+                              ),
+                              LikeButton(),
+                            ],
                           ),
+
                           Container(
                             width: containersMediaQuery(context),
                             padding: EdgeInsets.symmetric(
@@ -147,30 +157,43 @@ class RocketDetailsScreen extends StatelessWidget {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.all(20),
+                        padding: screenWidth(context) < maxTabletScreenWidth
+                            ? EdgeInsets.all(20)
+                            : EdgeInsets.only(top: 20, bottom: 20),
 
                         child: Column(
                           spacing: 10,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
-                              margin: EdgeInsets.only(bottom: 6),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                              width: screenDetailsWidthMediaQuery(context),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(
-                                    rocket['company'],
-                                    style: Theme.of(
-                                      context,
-                                    ).textTheme.headlineLarge,
+                                  Container(
+                                    margin: EdgeInsets.only(bottom: 6),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          rocket['company'],
+                                          style: Theme.of(
+                                            context,
+                                          ).textTheme.headlineLarge,
+                                        ),
+                                        Text(
+                                          // 'Republic of the Marshall Islands',
+                                          rocket['country'],
+                                          style: Theme.of(
+                                            context,
+                                          ).textTheme.bodyMedium,
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                  Text(
-                                    // 'Republic of the Marshall Islands',
-                                    rocket['country'],
-                                    style: Theme.of(
-                                      context,
-                                    ).textTheme.bodyMedium,
-                                  ),
+                                  LikeButton(),
                                 ],
                               ),
                             ),

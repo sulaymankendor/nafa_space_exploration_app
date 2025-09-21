@@ -25,7 +25,7 @@ class _DisplayRockets extends State<DisplayRockets> {
       builder: (context, rocketProvider, child) {
         if (rocketProvider.isLoading) {
           return Container(
-            height: 200, // Give it explicit height
+            height: 300, // Give it explicit height
             child: Center(child: CircularProgressIndicator()),
           );
         }
@@ -39,13 +39,6 @@ class _DisplayRockets extends State<DisplayRockets> {
                 style: TextStyle(color: Colors.red),
               ),
             ),
-          );
-        }
-
-        if (rocketProvider.rockets == null || rocketProvider.rockets!.isEmpty) {
-          return Container(
-            height: 200,
-            child: Center(child: Text('No rockets found')),
           );
         }
 

@@ -23,12 +23,13 @@ class CapsuleProvider extends ChangeNotifier {
 
   // TODO: Add methods
   Future<void> fetchCapsulesData() async {
+    _isLoading = true;
+    _error = null;
     try {
-      List<Map<String, dynamic>>? listOfRockets = await fetchCapsules(
-        _isLoading,
-        _error,
-      );
+      List<Map<String, dynamic>>? listOfRockets = await fetchCapsules(_error);
       _capsule = listOfRockets;
+      _isLoading = false;
+      _error = null;
     } catch (e) {
       _isLoading = false;
       _error = 'An unexpected error occurred: $e';

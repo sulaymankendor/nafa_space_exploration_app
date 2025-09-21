@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:spacex_flutter_app/presentation/utils/fotmatDate.dart';
 import 'package:spacex_flutter_app/presentation/utils/responsive_helpers.dart';
 import 'package:spacex_flutter_app/presentation/widgets/app_bars/custom_app_bar.dart';
+import 'package:spacex_flutter_app/presentation/widgets/reusables/like_button.dart';
 
 class LaunchDetailsScreen extends StatelessWidget {
   @override
@@ -25,40 +26,7 @@ class LaunchDetailsScreen extends StatelessWidget {
                         fit: BoxFit.cover,
                       ),
                     ),
-                    Container(
-                      width: containersMediaQuery(context),
 
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Container(
-                            padding: EdgeInsets.all(8),
-                            margin: EdgeInsets.only(top: 10, right: 20),
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                color: Colors.blue.withOpacity(0.4),
-                              ),
-                              borderRadius: BorderRadius.circular(30),
-                              color: Colors.blueAccent.withOpacity(0.1),
-                            ),
-                            child: Text(
-                              formatLaunchDate(launch['launch_date_local']),
-                              style: const TextStyle(
-                                fontSize: 11,
-                                fontWeight: FontWeight.w700,
-                                color: Colors.blueAccent,
-                              ),
-                            ),
-                          ),
-                          IconButton(
-                            onPressed: () {
-                              print('asd');
-                            },
-                            icon: Icon(Icons.favorite),
-                          ),
-                        ],
-                      ),
-                    ),
                     Padding(
                       padding: EdgeInsets.symmetric(
                         horizontal: 20,
@@ -70,6 +38,39 @@ class LaunchDetailsScreen extends StatelessWidget {
                           spacing: 8,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            Container(
+                              margin: EdgeInsets.only(bottom: 25),
+                              width: containersMediaQuery(context),
+
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                    padding: EdgeInsets.all(8),
+                                    margin: EdgeInsets.only(top: 10, right: 20),
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                        color: Colors.blue.withOpacity(0.4),
+                                      ),
+                                      borderRadius: BorderRadius.circular(30),
+                                      color: Colors.blueAccent.withOpacity(0.1),
+                                    ),
+                                    child: Text(
+                                      formatLaunchDate(
+                                        launch['launch_date_local'],
+                                      ),
+                                      style: const TextStyle(
+                                        fontSize: 11,
+                                        fontWeight: FontWeight.w700,
+                                        color: Colors.blueAccent,
+                                      ),
+                                    ),
+                                  ),
+                                  LikeButton(),
+                                ],
+                              ),
+                            ),
                             Container(
                               margin: EdgeInsets.only(bottom: 6),
                               child: Column(
@@ -167,45 +168,55 @@ class LaunchDetailsScreen extends StatelessWidget {
                           fit: BoxFit.cover,
                         ),
                       ),
-                      Container(
-                        width: screenDetailsWidthMediaQuery(context),
-                        margin: EdgeInsets.only(right: 20),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Container(
-                              padding: EdgeInsets.all(8),
-                              margin: EdgeInsets.only(top: 10),
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Colors.blue.withOpacity(0.4),
-                                ),
-                                borderRadius: BorderRadius.circular(30),
-                                color: Colors.blueAccent.withOpacity(0.1),
-                              ),
-                              child: Text(
-                                formatLaunchDate(launch['launch_date_local']),
-                                style: const TextStyle(
-                                  fontSize: 11,
-                                  fontWeight: FontWeight.w700,
-                                  color: Colors.blueAccent,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+
                       Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 20,
-                          vertical: 5,
-                        ),
+                        padding: screenWidth(context) < maxTabletScreenWidth
+                            ? EdgeInsets.all(20)
+                            : EdgeInsets.only(top: 20, bottom: 20),
 
                         child: Container(
                           child: Column(
                             spacing: 8,
+
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              Container(
+                                margin: EdgeInsets.only(bottom: 25),
+                                width: screenDetailsWidthMediaQuery(context),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Container(
+                                      padding: EdgeInsets.all(8),
+                                      margin: EdgeInsets.only(
+                                        top: 10,
+                                        right: 20,
+                                      ),
+                                      decoration: BoxDecoration(
+                                        border: Border.all(
+                                          color: Colors.blue.withOpacity(0.4),
+                                        ),
+                                        borderRadius: BorderRadius.circular(30),
+                                        color: Colors.blueAccent.withOpacity(
+                                          0.1,
+                                        ),
+                                      ),
+                                      child: Text(
+                                        formatLaunchDate(
+                                          launch['launch_date_local'],
+                                        ),
+                                        style: const TextStyle(
+                                          fontSize: 11,
+                                          fontWeight: FontWeight.w700,
+                                          color: Colors.blueAccent,
+                                        ),
+                                      ),
+                                    ),
+                                    LikeButton(),
+                                  ],
+                                ),
+                              ),
                               Container(
                                 margin: EdgeInsets.only(bottom: 6),
                                 child: Column(

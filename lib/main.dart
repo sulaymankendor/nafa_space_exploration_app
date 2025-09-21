@@ -8,7 +8,6 @@ import 'package:spacex_flutter_app/presentation/providers/capsule_provider.dart'
 import 'package:spacex_flutter_app/presentation/providers/launch_provider.dart';
 import 'package:spacex_flutter_app/presentation/providers/rocket_provider.dart';
 import 'package:spacex_flutter_app/presentation/screens/CapsulesScreen.dart';
-import 'package:spacex_flutter_app/presentation/screens/FavouritesScreen.dart';
 import 'package:spacex_flutter_app/presentation/screens/HomeScreen.dart';
 import 'package:spacex_flutter_app/presentation/screens/LaunchDetailsScreen.dart';
 import 'package:spacex_flutter_app/presentation/screens/LaunchesScreen.dart';
@@ -141,7 +140,7 @@ class _SpaceXAppState extends State<SpaceXApp> {
                             onTap: (int index) {
                               switch (index) {
                                 case 1:
-                                  Get.toNamed('/favourites');
+                                  Get.toNamed('/rockets');
 
                                   break;
                                 case 2:
@@ -157,8 +156,8 @@ class _SpaceXAppState extends State<SpaceXApp> {
                                 label: 'Home',
                               ),
                               BottomNavigationBarItem(
-                                icon: Icon(Icons.favorite),
-                                label: 'Favourites',
+                                icon: Icon(Icons.rocket),
+                                label: 'Rockets',
                               ),
                               BottomNavigationBarItem(
                                 icon: Icon(Icons.search),
@@ -226,13 +225,6 @@ class _SpaceXAppState extends State<SpaceXApp> {
                             customTransition:
                                 CustomSlideTransition(), // Provide your custom transition here
                             transitionDuration: Duration(milliseconds: 200),
-                          ),
-                          GetPage(
-                            name: '/favourites',
-                            page: () => FavouritesScreen(),
-                            transition:
-                                Transition.fadeIn, // Apply the transition here
-                            transitionDuration: Duration(milliseconds: 100),
                           ),
                         ],
                       );

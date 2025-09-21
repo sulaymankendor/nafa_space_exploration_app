@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:spacex_flutter_app/presentation/utils/responsive_helpers.dart';
 
-class HomeNavSection extends StatelessWidget {
+class Filter extends StatelessWidget {
   dynamic setCategory;
   String currentCategory;
-  HomeNavSection({required this.setCategory, required this.currentCategory});
+  Filter({required this.setCategory, required this.currentCategory});
 
   @override
   Widget build(BuildContext context) {
     List<Map<String, String>> categories = [
-      {"category": 'All', 'toFilter': 'All'},
+      {"category": 'Capsules', 'toFilter': 'Capsule'},
+      {"category": 'Rockets', 'toFilter': 'Rocket'},
+      {"category": 'Launches', 'toFilter': 'Launch'},
       {"category": 'Launchpads', 'toFilter': 'Launchpad'},
       {"category": 'Landpads', 'toFilter': 'Landpad'},
     ];
